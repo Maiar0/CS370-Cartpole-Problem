@@ -1,0 +1,22 @@
+REINFORCE
+Initialize policy parameters θ
+Repeat for each episode:
+    Initialize state s₀
+    Repeat for each time step:
+        Select action aₜ from policy π(a|sₜ, θ)
+        Execute action aₜ, observe reward rₜ and new state sₜ₊₁
+        Store (sₜ, aₜ, rₜ)
+    End episode
+    Compute return G for each time step
+    Update policy parameters θ ← θ + α ∑ G ∇θ log π(a|sₜ, θ)
+
+A2C
+Initialize actor and critic parameters (θₐ, θᵥ)
+Repeat for each episode:
+    Initialize state s₀
+    Repeat for each time step:
+        Select action aₜ from actor policy π(a|sₜ, θₐ)
+        Execute action aₜ, observe reward rₜ and new state sₜ₊₁
+        Compute advantage Aₜ = rₜ + γ V(sₜ₊₁, θᵥ) - V(sₜ, θᵥ)
+        Update actor θₐ ← θₐ + α Aₜ ∇θ log π(aₜ|sₜ, θₐ)
+        Update critic θᵥ ← θᵥ + β ∇θᵥ (Aₜ)²
